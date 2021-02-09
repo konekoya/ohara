@@ -48,7 +48,7 @@
     "@types/react-dom": "16.9.8",
     "@types/redux-form": "8.3.0",
     "@xstate/react": "0.8.1",
-    "axios": "0.19.2",
+    "axios": "0.21.1",
     "backoff-rxjs": "6.5.7",
     "browserify-istanbul": "3.0.1",
     "classnames": "2.2.6",

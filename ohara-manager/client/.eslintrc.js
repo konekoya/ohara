@@ -88,7 +88,6 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-use-before-define': 'warn',
         '@typescript-eslint/ban-ts-comment': 'off',
-        'no-unused-vars': 'off',
       },
     },
   ],
@@ -96,7 +95,6 @@ module.exports = {
     {
       files: ['./**/components/**/*.ts?(x)'],
       rules: {
-        'no-unused-vars': 'off',
         'react/prop-types': 'off',
         '@typescript-eslint/no-use-before-define': 'warn',
         '@typescript-eslint/explicit-module-boundary-types': 'warn',
