@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-import axios, { AxiosResponse, AxiosInstance, AxiosTransformer } from 'axios';
-import { isArray, isPlainObject, has, cloneDeep, capitalize } from 'lodash';
-
-import {
-  ObjectKey,
-  Meta,
-  Params,
-  BasicResponse,
-  ApiError,
-} from '../apiInterface/basicInterface';
 import { FileRequest } from 'api/apiInterface/fileInterface';
+import axios, { AxiosInstance, AxiosResponse, AxiosTransformer } from 'axios';
+import { capitalize, cloneDeep, has, isArray, isPlainObject } from 'lodash';
+import {
+  ApiError,
+  BasicResponse,
+  Meta,
+  ObjectKey,
+  Params,
+} from '../apiInterface/basicInterface';
 
 // Configurator resources
 export enum RESOURCE {

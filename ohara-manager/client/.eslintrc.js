@@ -35,12 +35,6 @@ module.exports = {
     'no-alert': 'warn',
     'no-debugger': 'warn',
     'no-console': 'warn',
-    'no-unused-vars': [
-      'warn',
-      {
-        args: 'after-used',
-      },
-    ],
     'no-template-curly-in-string': 'warn',
     'no-case-declarations': 'off',
     'array-callback-return': 'warn',
@@ -85,6 +79,8 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-implied-eval': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
   },
   overrides: [
     {
@@ -92,6 +88,7 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-use-before-define': 'warn',
         '@typescript-eslint/ban-ts-comment': 'off',
+        'no-unused-vars': 'off',
       },
     },
   ],
@@ -99,6 +96,7 @@ module.exports = {
     {
       files: ['./**/components/**/*.ts?(x)'],
       rules: {
+        'no-unused-vars': 'off',
         'react/prop-types': 'off',
         '@typescript-eslint/no-use-before-define': 'warn',
         '@typescript-eslint/explicit-module-boundary-types': 'warn',
