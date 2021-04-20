@@ -17,12 +17,10 @@
 package oharastream.ohara.testing.service;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import kafka.metrics.KafkaMetricsReporter;
 import kafka.server.KafkaConfig;
 import kafka.server.KafkaConfig$;
 import kafka.server.KafkaServer;
@@ -48,6 +46,8 @@ public interface Brokers extends Releasable {
             .mapToObj(
                 index -> {
                   int port = ports[index];
+                  if (port > 65535)
+                    throw new RuntimeException("port: " + port + " can't be larger than 65535");
                   File logDir = tempFolders.get(index);
                   Properties config = new Properties();
                   // reduce the number from partitions and replicas to speedup the mini cluster
@@ -58,8 +58,7 @@ public interface Brokers extends Releasable {
                   config.setProperty(KafkaConfig$.MODULE$.ZkConnectProp(), zk.connectionProps());
                   config.setProperty(KafkaConfig$.MODULE$.BrokerIdProp(), String.valueOf(index));
                   config.setProperty(
-                      KafkaConfig$.MODULE$.ListenersProp(),
-                      "PLAINTEXT://:" + (port <= 0 ? 0 : port));
+                      KafkaConfig$.MODULE$.ListenersProp(), "PLAINTEXT://:" + (Math.max(port, 0)));
                   config.setProperty(KafkaConfig$.MODULE$.LogDirProp(), logDir.getAbsolutePath());
                   // increase the timeout in order to avoid ZkTimeoutException
                   config.setProperty(
@@ -67,13 +66,7 @@ public interface Brokers extends Releasable {
                   scala.jdk.CollectionConverters.IterableHasAsScala(List.of());
                   KafkaServer broker =
                       new KafkaServer(
-                          new KafkaConfig(config),
-                          SystemTime.SYSTEM,
-                          scala.Option.empty(),
-                          scala.jdk.CollectionConverters.IterableHasAsScala(
-                                  Collections.<KafkaMetricsReporter>emptyList())
-                              .asScala()
-                              .toSeq());
+                          new KafkaConfig(config), SystemTime.SYSTEM, scala.Option.empty(), false);
 
                   broker.startup();
                   return broker;
